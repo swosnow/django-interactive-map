@@ -1,8 +1,13 @@
 <div class="problem problem-list-item">
     <div class="problem-title-container">
         <h2 class="problem-title">
-            <a href="/">TITULO DO PROBLEMA</a>
+            <a href="{% url 'mapaguapi:problems' problems.id %}">{{ problems.title }}</a>
         </h2>
     </div>
+    {% if is_detail_page is True %}
+        <div class="preparation-steps">
+            {{ problems.description|linebreaksbr }}
+        </div>
+    {% endif %}
 </div>
 

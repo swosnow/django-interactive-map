@@ -1,0 +1,9 @@
+{% extends "global/base.html" %}
+
+{% block title %} {{problem.title}} {% endblock title %}
+
+{% block content %}
+<div class="main-content container main-content-detail">
+        {% include "mapaguapi/partials/problem.html" %}
+</div>
+{% endblock content %}

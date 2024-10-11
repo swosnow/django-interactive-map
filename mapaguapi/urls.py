@@ -1,8 +1,10 @@
 from django.urls import path
 from . import views
 
+app_name = 'mapaguapi'
+
 urlpatterns = [
     
     path('', views.home, name='home'),
-    path('problem/<int:id>', views.problem, name='problem')
+    path('problems/<int:id>', views.problem, name='problems')
 ]
