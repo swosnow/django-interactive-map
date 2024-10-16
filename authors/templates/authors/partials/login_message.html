@@ -1,0 +1,7 @@
+{% if request.user.is_authenticated %}
+<div class="login-message">
+    Você está logado como
+    {{ request.user.username }}
+    <li>Os problemas que você enviar ficará em análise e será publicada por um administrador, neste período ainda é possível edita-la</li>
+</div>
+{% endif %}
