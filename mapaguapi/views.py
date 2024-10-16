@@ -15,3 +15,8 @@ def problem(request, id):
         'problems': problems,
         'is_detail_page': True,
     })
+
+def map_view(request):
+    context = {'problems': list(Problem.objects.values('lat', 'lng'))}
+
+    return render(request, 'mapaguapi/pages/map-view.html', context)

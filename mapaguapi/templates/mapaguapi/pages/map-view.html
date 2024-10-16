@@ -1,0 +1,30 @@
+{% extends "global/base.html" %}
+
+
+{% block content %}
+
+    <div id="map" style="height:500px; width: 100%;">
+        HELLO
+    </div>
+
+{{ problems|json_script:"problem-json" }}
+
+{% endblock content %}
+
+{% block scripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let map = creatMap([45.5, -90], 13);
+            let problems = JSON.parse(document.getElementById('problem-json').textContent)
+            let markers = L.featureGroup().addTo(map);
+
+            for (let problem of problems){
+                L.marker([problem.lat, problem.lng]).addTo(markers);
+            }
+        })
+    </script>
+{% endblock scripts %}
+<!-- Script do Leaflet -->
+
+
+
