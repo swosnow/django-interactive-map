@@ -1,0 +1,28 @@
+<button class="button-show-menu button-show-menu-visible">
+    <i class="fas fa-bars"></i>
+    <span class="hidden-text">Show menu</span>
+</button>
+
+<div class="menu-container menu-hidden">
+    <button class="button-close-menu button-close-menu-visible">
+        <i class="fas fa-times-circle"></i>
+        <span class="hidden-text">Close menu</span>
+    </button>
+
+    <div class="menu-content">
+        <nav class="menu-nav">
+            <a href="{% url 'mapaguapi:map_view' %}">Home</a>
+
+            {% if user.is_authenticated %}
+                <a href="{% url 'author:dashboard_problem_new' %}">Reportar um problema</a>
+                <a href="{% url 'author:dashboard' %}">Dashboard</a>
+                <a class="authors-logout-link" href="{% url 'author:logout' %}">Sair</a>
+                {% include 'authors/partials/form_logout.html' %}
+            {% else %}
+                <a href="{% url 'author:login' %}">Login</a>
+                <a href="{% url 'author:register' %}">Criar conta</a>
+            {% endif %}
+        </nav>
+    </div>
+    <div><img src="logo-site-mono.png" alt=""></div>   
+</div>

@@ -6,3 +6,4 @@ function creatMap(center, zoom) {
     }).addTo(map);
     return map
 }
+

@@ -1,7 +1,9 @@
+
+
 <div class="problem problem-list-item">
     <div class="problem-title-container">
         <h2 class="problem-title">
-            <a href="{% url 'mapaguapi:problems' problems.id %}">{{ problems.title }}</a>
+            <a href="{{ problems.get_absolute_url }}">{{ problems.title }}</a>
         </h2>
     </div>
     {% if is_detail_page is True %}

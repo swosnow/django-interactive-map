@@ -6,7 +6,7 @@ from mapaguapi.models import Problem
 def home(request):
     problems = Problem.objects.all().order_by('-id')
     return render(request, 'mapaguapi/pages/home.html', context={
-        'problems': problems,
+        'problem': problems,
     })
 
 def problem(request, id):

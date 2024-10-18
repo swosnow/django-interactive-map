@@ -73,7 +73,7 @@ class DashboardProblem(View):
             messages.success(request, 'Sua receita foi salva com sucesso!')
             return redirect(
                 reverse(
-                    'authors:dashboard_problem_edit', args=(
+                    'author:dashboard_problem_edit', args=(
                         problem.id,
                     )
                 )

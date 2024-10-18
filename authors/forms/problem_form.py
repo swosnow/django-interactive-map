@@ -8,7 +8,8 @@ from mapaguapi.models import Problem
 class AuthorProblemForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
+        self.fields['lat'].label = ''
+        self.fields['lng'].label = ''
         self._my_errors = defaultdict(list)
         
 
@@ -18,7 +19,17 @@ class AuthorProblemForm(forms.ModelForm):
 
     class Meta:
         model = Problem
-        fields = 'title', 'description', 'cep'
+        fields = 'title', 'description', 'cep', 'lat', 'lng'
+
+        widgets = {
+            'lat': forms.HiddenInput(attrs={'type': 'hidden', 
+                                            'id': 'lat'}),
+            
+            'lng': forms.HiddenInput(attrs={'type': 'hidden', 
+                                            'id': 'lng'},),
+            
+        }
+    
 
     def clean(self, *args, **kwargs):
         super_clean = super().clean(*args, **kwargs)

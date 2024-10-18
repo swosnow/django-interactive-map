@@ -4,7 +4,8 @@
 {% include "global/partials/head.html" %}
 
     <div class="main-content main-content-list container">
-        {% for problems in problems %}
+        <div class="poblem-page-title"><h2>Problemas Relatados</h2></div>
+        {% for problems in problem %}
             {% include "mapaguapi/partials/problem.html" %}
         {% endfor %}
     </div>

@@ -15,7 +15,7 @@ def register_view(request):
     
     return render(request, 'authors/pages/register_view.html', {
         'form': form,
-        'form_action': reverse('authors:register_create')
+        'form_action': reverse('author:register_create')
     })
 
 def register_create(request):
@@ -33,16 +33,16 @@ def register_create(request):
         messages.success(request, 'Seu usuário foi criado com sucesso!!, por favor faça login.')
 
         del(request.session['register_form_data'])
-        return redirect(reverse('authors:login'))
+        return redirect(reverse('author:login'))
 
-    return redirect('authors:register')
+    return redirect('author:register')
 
 
 def login_view(request):
     form = LoginForm()
     return render(request, 'authors/pages/login.html',
                   {'form': form,
-                   'form_action': reverse('authors:login_create')})
+                   'form_action': reverse('author:login_create')})
 
 def login_create(request):
     if not request.POST:
@@ -64,23 +64,23 @@ def login_create(request):
     else:
         messages.error(request, 'Usuário ou senha inválidos')
 
-    return redirect(reverse('authors:dashboard'))
+    return redirect(reverse('author:dashboard'))
 
-@login_required(login_url='authors:login', redirect_field_name='next')
+@login_required(login_url='author:login', redirect_field_name='next')
 def logout_view(request):
     if not request.POST:
         messages.error(request, 'Invalid logout request')
-        return redirect(reverse('authors:login'))
+        return redirect(reverse('author:login'))
     
     if request.POST.get('username') != request.user.username:
         messages.error(request, 'Invalid logout user')
-        return redirect(reverse('authors:login'))
+        return redirect(reverse('author:login'))
     
     messages.success(request, 'Logged out successfully')
     logout(request)
-    return redirect(reverse('authors:login'))
+    return redirect(reverse('author:login'))
 
-@login_required(login_url='authors:login', redirect_field_name='next')
+@login_required(login_url='author:login', redirect_field_name='next')
 def dashboard(request):
     problems = Problem.objects.filter(
         is_published=False,
@@ -99,8 +99,7 @@ def dashboard_problem_new(request):
         data=request.POST or None,
         
     )
-    latitude = request.POST.get('latitude')
-    longitude = request.POST.get('longitude')
+
 
     if form.is_valid():
         problem: Problem = form.save(commit=False)
@@ -109,13 +108,13 @@ def dashboard_problem_new(request):
         problem.preparation_steps_is_html = False
         problem.is_published = False
 
-        Problem.objects.create(lat=latitude, lng=longitude)
+        
 
         problem.save()
 
         messages.success(request, 'Salvo com sucesso!')
         return redirect(
-            reverse('authors:dashboard_problem_edit', args=(problem.id,))
+            reverse('author:dashboard_problem_edit', args=(problem.id,))
         )
 
     return render(
@@ -123,12 +122,12 @@ def dashboard_problem_new(request):
         'authors/pages/dashboard_problem.html',
         context={
             'form': form,
-            'form_action': reverse('authors:dashboard_problem_new')
+            'form_action': reverse('author:dashboard_problem_new')
         }
     )
 
 
-@login_required(login_url='authors:login', redirect_field_name='next')
+@login_required(login_url='author:login', redirect_field_name='next')
 def dashboard_problem_delete(request):
     if not request.POST:
         raise Http404()
@@ -145,4 +144,4 @@ def dashboard_problem_delete(request):
         raise Http404()
     problem.delete()
     messages.success(request, 'Deletado com sucesso!.')
-    return redirect(reverse('authors:dashboard'))
+    return redirect(reverse('author:dashboard'))
